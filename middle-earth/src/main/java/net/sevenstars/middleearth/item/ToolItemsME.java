@@ -10,6 +10,7 @@ import net.sevenstars.middleearth.datageneration.content.models.SimpleBigItemMod
 import net.sevenstars.middleearth.datageneration.content.models.SimpleHandheldItemModel;
 import net.sevenstars.middleearth.item.items.PipeItem;
 import net.sevenstars.middleearth.item.items.SmithingHammerItem;
+import net.sevenstars.middleearth.item.items.WoodenBucketItem;
 import net.sevenstars.middleearth.item.items.weapons.CustomAxeWeaponItem;
 import net.sevenstars.middleearth.item.utils.ModItemGroups;
 import net.sevenstars.middleearth.item.utils.ModToolMaterials;
@@ -101,7 +102,7 @@ public class ToolItemsME {
             (settings) -> new ShovelItem(ModToolMaterials.EDHEL_STEEL, 1.5f, -3.0f, settings), new Item.Settings());
     public static final Item EDHEL_STEEL_HOE = registerItemHandheld("edhel_steel_hoe",
             (settings) -> new HoeItem(ModToolMaterials.EDHEL_STEEL, -2.0f, -1.0f, settings), new Item.Settings());
-    
+
     public static final Item KHAZAD_STEEL_PICKAXE = registerItemHandheld("khazad_steel_pickaxe",
             Item::new, new Item.Settings().pickaxe(ModToolMaterials.KHAZAD_STEEL, 1.0f, -2.8f));
     public static final Item KHAZAD_STEEL_AXE = registerItemHandheld("khazad_steel_axe",
@@ -130,7 +131,17 @@ public class ToolItemsME {
             (settings) -> new PipeItem(settings, 5), new Item.Settings().maxCount(1));
     public static final Item LONGBOTTOM_PIPE = registerItem2dGUI3dPerson("longbottom_pipe",
             (settings) -> new PipeItem(settings, 5), new Item.Settings().maxCount(1));
-    
+
+    public static final Item WOODEN_BUCKET_ITEM = registerItemHandheld("wooden_bucket_item",
+            (settings) -> new WoodenBucketItem(WoodenBucketItem.WoodenBucketContentType.EMPTY, settings.maxCount(1)),
+            new Item.Settings().maxCount(1));
+    public static final Item WOODEN_WATER_BUCKET_ITEM = registerItemHandheld("wooden_water_bucket_item",
+            (settings) -> new WoodenBucketItem(WoodenBucketItem.WoodenBucketContentType.WATER, settings.maxCount(1)),
+            new Item.Settings().maxCount(1));
+    public static final Item WOODEN_POWDER_SNOW_BUCKET_ITEM = registerItemHandheld("wooden_powder_snow_bucket_item",
+            (settings) -> new WoodenBucketItem(WoodenBucketItem.WoodenBucketContentType.POWDERED_SNOW, settings.maxCount(1)),
+            new Item.Settings().maxCount(1));
+
     private static Item registerItemHandheld(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         ModItemGroups.TOOLS_CONTENTS.add(item.getDefaultStack());
@@ -144,7 +155,7 @@ public class ToolItemsME {
         SimpleBigItemModel.items.add(item);
         return registerItem(item, name);
     }
-    
+
     public static Item registerItem2dGUI3dPerson(String name, Function<Item.Settings, Item> factory, Item.Settings settings){
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
         SimpleBigItemModel.genericItems.add(item);
