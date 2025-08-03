@@ -1,5 +1,8 @@
 package net.sevenstars.middleearth.item;
 
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.UseRemainderComponent;
+import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -141,6 +144,19 @@ public class ToolItemsME {
     public static final Item WOODEN_POWDER_SNOW_BUCKET_ITEM = registerItemHandheld("wooden_powder_snow_bucket_item",
             (settings) -> new WoodenBucketItem(WoodenBucketItem.WoodenBucketContentType.POWDERED_SNOW, settings.maxCount(1)),
             new Item.Settings().maxCount(1));
+    public static final Item WOODEN_MILK_BUCKET_ITEM = registerItemHandheld(
+            "wooden_milk_bucket_item",
+            (baseSettings) -> {
+                Item.Settings settings = baseSettings
+                        .component(DataComponentTypes.CONSUMABLE, ConsumableComponents.MILK_BUCKET)
+                        .component(DataComponentTypes.USE_REMAINDER, new UseRemainderComponent(new ItemStack(WOODEN_BUCKET_ITEM)))
+                        .maxCount(1)
+                        .registryKey(ModBlocks.keyOfItem("wooden_milk_bucket_item"));
+
+                return new WoodenBucketItem(WoodenBucketItem.WoodenBucketContentType.MILK, settings);
+            },
+            new Item.Settings().maxCount(1)
+    );
 
     private static Item registerItemHandheld(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {
         Item item = (Item)factory.apply(settings.registryKey(ModBlocks.keyOfItem(name)));
